@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import CategoryList from "./components/Category-list";
+import Search from "./components/Search";
 
 interface ApiProduct {
   id: number;
@@ -70,6 +71,7 @@ export default function Home() {
       <FlatList
         ListHeaderComponent={
           <View className="px-5 py-4">
+            <Search />
             <CategoryList />
           </View>
         }
@@ -77,6 +79,7 @@ export default function Home() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
+        className="mt-3"
       />
     </SafeAreaView>
   );
