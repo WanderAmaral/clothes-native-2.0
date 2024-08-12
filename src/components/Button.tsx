@@ -1,50 +1,42 @@
-import { type VariantProps, cva } from 'class-variance-authority';
-import { Text, TouchableOpacity } from 'react-native';
+import { type VariantProps, cva } from "class-variance-authority";
+import { Text, TouchableOpacity } from "react-native";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  'flex flex-row items-center justify-center rounded-md',
+  "flex flex-row items-center justify-center rounded-2xl",
   {
     variants: {
       variant: {
-        default: 'bg-primary',
-        secondary: 'bg-secondary',
-        destructive: 'bg-destructive',
-        ghost: 'bg-slate-700',
-        link: 'text-primary underline-offset-4',
+        default: "bg-[#E12727]",
       },
       size: {
-        default: 'h-10 px-4',
-        sm: 'h-8 px-2',
-        lg: 'h-12 px-8',
+        default: "h-10 px-4",
+        sm: "h-8 px-2",
+        lg: "h-16 px-8",
       },
     },
     defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      variant: "default",
+      size: "default",
     },
   }
 );
 
-const buttonTextVariants = cva('text-center font-medium', {
+const buttonTextVariants = cva("text-center font-medium ", {
   variants: {
     variant: {
-      default: 'text-primary-foreground',
-      secondary: 'text-secondary-foreground',
-      destructive: 'text-destructive-foreground',
-      ghost: 'text-primary-foreground',
-      link: 'text-primary-foreground underline',
+      default: "text-white",
     },
     size: {
-      default: 'text-base',
-      sm: 'text-sm',
-      lg: 'text-xl',
+      default: "text-base",
+      sm: "text-sm",
+      lg: "text-2xl",
     },
   },
   defaultVariants: {
-    variant: 'default',
-    size: 'default',
+    variant: "default",
+    size: "default",
   },
 });
 
