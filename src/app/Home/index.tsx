@@ -8,6 +8,7 @@ import Cart from "../Cart";
 import Home from "./components/home-page";
 import Menu from "../Menu";
 import User from "../User";
+import DetailsPageScreens from "../DetailsPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ export function MyTabs() {
       >
         <Tab.Screen
           name="Home"
-          component={Home}
+          component={DetailsPageScreens}
           options={{
             tabBarLabel: "",
             tabBarIcon: ({ focused }) => (

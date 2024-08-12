@@ -3,13 +3,14 @@ import {
   Text,
   FlatList,
   Image,
-  ScrollView,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import CategoryList from "./Category-list";
 import Search from "./Search";
+import { truncateName } from "@/helpers/splitName";
 
 interface ApiProduct {
   id: number;
@@ -25,8 +26,11 @@ interface DataProducts {
   image: string;
 }
 
-export default function Home() {
+export default function Home({ navigation }: any) {
   const [products, setProducts] = useState<DataProducts[]>([]);
+
+  // Função para cortar o nome do produto para duas palavras
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,7 +40,7 @@ export default function Home() {
 
         const formattedData = data.map((item) => ({
           id: item.id,
-          name: item.title,
+          name: truncateName(item.title),
           price: item.price,
           image: item.image,
         }));
@@ -50,19 +54,23 @@ export default function Home() {
 
   const renderItem = ({ item }: { item: DataProducts }) => (
     <View className="px-2 w-1/2 ">
-      <View className="rounded px-4 relative">
-        <Image
-          source={{ uri: item.image }}
-          className="w-full h-48 rounded-3xl"
-        />
-        <View className="absolute right-6 top-3 flex items-center rounded-full bg-white p-2">
-          <Ionicons name="heart-outline" size={24} color="#D91F1F" />
+      <TouchableOpacity
+        onPress={() => navigation.navigate("DetailsPage", { product: item })}
+      >
+        <View className="rounded px-4 relative">
+          <Image
+            source={{ uri: item.image }}
+            className="w-full h-48 rounded-3xl"
+          />
+          <View className="absolute right-6 top-3 flex items-center rounded-full bg-white p-2">
+            <Ionicons name="heart-outline" size={24} color="#D91F1F" />
+          </View>
+          <Text className="text-lg font-bold mb-2">{item.name}</Text>
+          <Text className="text-base text-gray-600 ">
+            R$: {item.price.toFixed(2)}
+          </Text>
         </View>
-        <Text className="text-lg font-bold mb-2">{item.name}</Text>
-        <Text className="text-base text-gray-600 ">
-          R$: {item.price.toFixed(2)}
-        </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 
