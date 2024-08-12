@@ -1,86 +1,85 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
-import { useEffect, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
-import CategoryList from "./components/Category-list";
-import Search from "./components/Search";
+import { View } from "react-native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MyTheme } from "./components/theme-types";
+import { Ionicons, Feather } from "@expo/vector-icons";
 
-interface ApiProduct {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
+import Cart from "../Cart";
+import Home from "./components/home-page";
+import Menu from "../Menu";
+import User from "../User";
 
-interface DataProducts {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-}
+const Tab = createBottomTabNavigator();
 
-export default function Home() {
-  const [products, setProducts] = useState<DataProducts[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        const data: ApiProduct[] = await response.json();
-
-        const formattedData = data.map((item) => ({
-          id: item.id,
-          name: item.title,
-          price: item.price,
-          image: item.image,
-        }));
-        setProducts(formattedData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  const renderItem = ({ item }: { item: DataProducts }) => (
-    <View className="px-2 w-1/2">
-      <View className="rounded px-4 relative">
-        <Image
-          source={{ uri: item.image }}
-          className="w-full h-48 rounded-3xl"
-        />
-        <View className="absolute right-6 top-3 flex items-center rounded-full bg-white p-2">
-          <Ionicons name="heart-outline" size={24} color="#D91F1F" />
-        </View>
-        <Text className="text-lg font-bold mb-2">{item.name}</Text>
-        <Text className="text-base text-gray-600 ">
-          R$: {item.price.toFixed(2)}
-        </Text>
-      </View>
-    </View>
-  );
-
+export function MyTabs() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        ListHeaderComponent={
-          <View className="px-5 py-4">
-            <Search />
-            <CategoryList />
-          </View>
-        }
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        numColumns={2}
-        className="mt-3"
-      />
-    </SafeAreaView>
+    <NavigationContainer theme={MyTheme}>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            height: 70,
+            alignItems: "center",
+          },
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name={focused ? "home" : "home-outline"}
+                size={30}
+                color={focused ? "#E12727" : "#c0c0c0"}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Menu"
+          component={Menu}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name={focused ? "menu" : "menu-outline"}
+                size={30}
+                color={focused ? "#E12727" : "#c0c0c0"}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ focused }) => (
+              <Ionicons
+                name="cart"
+                size={30}
+                color={focused ? "#E12727" : "#c0c0c0"}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="User"
+          component={User}
+          options={{
+            tabBarLabel: "",
+            tabBarIcon: ({ focused, size }) => (
+              <Feather
+                name="user"
+                size={size}
+                color={focused ? "#E12727" : "#c0c0c0"}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }

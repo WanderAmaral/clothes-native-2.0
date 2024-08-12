@@ -1,15 +1,16 @@
 import "@/styles/global.css";
-import Home from "@/app/Home";
+import Header from "@/components/Header";
+
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
+import { tokenCache } from "@/storage/tokenCache";
 
 import Constants from "expo-constants";
-import { tokenCache } from "@/storage/tokenCache";
-import Header from "@/components/Header";
+import { MyTabs } from "@/app/Home";
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -47,7 +48,9 @@ export default function App() {
             <InitialLayout />
             <StatusBar style="auto" />
             <Header />
-            <Home />
+
+            <MyTabs />
+          
           </SafeAreaView>
         </LinearGradient>
       </ClerkProvider>
