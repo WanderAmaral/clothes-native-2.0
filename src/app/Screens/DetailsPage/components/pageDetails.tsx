@@ -29,12 +29,11 @@ export default function DetailsPage({ navigation }: any) {
   const { addProductToCart } = useCartStore();
   const { userId } = useAuth();
 
-  console.log(userId)
+  console.log(userId);
 
   const handleAddProduct = () => {
-
-    if(!userId) {
-      return null
+    if (!userId) {
+      return null;
     }
 
     const productToAdd = {
@@ -43,6 +42,7 @@ export default function DetailsPage({ navigation }: any) {
       price: product.price,
       image: product.image,
       userId: userId ?? "",
+      quantity: 1
     };
     addProductToCart(productToAdd);
   };
@@ -74,6 +74,7 @@ export default function DetailsPage({ navigation }: any) {
           <Sizes text="L" />
           <Sizes text="XL" />
         </View>
+
         <Text className="font-semibold text-xl">Color</Text>
         <View className="flex-row gap-4">
           <Sizes className="bg-[#EE3434]" />
