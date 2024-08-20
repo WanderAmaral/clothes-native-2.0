@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import CategoryList from "./Category-list";
 import Search from "./Search";
 import { truncateName } from "@/helpers/splitName";
+import { useCartStore } from "@/store/cart";
 
 interface ApiProduct {
   id: number;
@@ -27,10 +28,10 @@ interface DataProducts {
 }
 
 export default function Home({ navigation }: any) {
-  const [products, setProducts] = useState<DataProducts[]>([]);
+  const [fetchProducts, setProducts] = useState<DataProducts[]>([]);
+  const { products } = useCartStore();
 
-  // Função para cortar o nome do produto para duas palavras
-
+  console.log(products);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,7 +58,7 @@ export default function Home({ navigation }: any) {
       <TouchableOpacity
         onPress={() => navigation.navigate("DetailsPage", { product: item })}
       >
-        <View className="rounded px-4 relative">
+        <View className="rounded px-4 relative py-2">
           <Image
             source={{ uri: item.image }}
             className="w-full h-48 rounded-3xl"
@@ -65,7 +66,7 @@ export default function Home({ navigation }: any) {
           <View className="absolute right-6 top-3 flex items-center rounded-full bg-white p-2">
             <Ionicons name="heart-outline" size={24} color="#D91F1F" />
           </View>
-          <Text className="text-lg font-bold mb-2">{item.name}</Text>
+          <Text className="text-lg font-bold ">{item.name}</Text>
           <Text className="text-base text-gray-600 ">
             R$: {item.price.toFixed(2)}
           </Text>
@@ -83,11 +84,11 @@ export default function Home({ navigation }: any) {
             <CategoryList />
           </View>
         }
-        data={products}
+        data={fetchProducts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
-        style={{ marginTop: 8 }}
+        style={{ marginTop: 5 }}
       />
     </SafeAreaView>
   );

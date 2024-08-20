@@ -1,14 +1,13 @@
 import { View } from "react-native";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MyTheme } from "./components/theme-types";
+import { MyTheme } from "../components/theme-types";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
-import Cart from "../Cart";
-import Home from "./components/home-page";
-import Menu from "../Menu";
-import User from "../User";
-import DetailsPageScreens from "../DetailsPage";
+import Cart from "./Cart";
+import Menu from "./Menu";
+import User from "./User";
+import DetailsPageScreens from "./DetailsPage";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +24,7 @@ export function MyTabs() {
         }}
       >
         <Tab.Screen
-          name="Home"
+          name="Inicio"
           component={DetailsPageScreens}
           options={{
             tabBarLabel: "",

@@ -10,7 +10,7 @@ import { ActivityIndicator } from "react-native";
 import { tokenCache } from "@/storage/tokenCache";
 
 import Constants from "expo-constants";
-import { MyTabs } from "@/app/Home";
+import { MyTabs } from "@/app/Screens";
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -50,7 +50,6 @@ export default function App() {
             <Header />
 
             <MyTabs />
-          
           </SafeAreaView>
         </LinearGradient>
       </ClerkProvider>

@@ -38,7 +38,7 @@ const Header = () => {
   }, []);
 
   return (
-    <View className="w-full items-center justify-between flex flex-row p-5">
+    <View className="w-full items-center justify-between flex flex-row py-4 px-5">
       <Pressable className="w-16 h-16 bg-white items-center flex justify-center rounded-full">
         <Ionicons name="menu" size={40} color={"#121212"} />
       </Pressable>
