@@ -1,9 +1,11 @@
-import { View, Pressable, Image, Text } from "react-native";
+import { View, Pressable, Image, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect } from "react";
 import { useAuth, useOAuth, useUser } from "@clerk/clerk-expo";
 import * as Liking from "expo-linking";
+import { Dialog, DialogContent, DialogTrigger } from "./Dialog";
+import { Button } from "./Button";
 
 interface HeaderProps {
   Icon?: typeof Ionicons;
@@ -50,14 +52,32 @@ const Header = ({ Icon, children }: HeaderProps) => {
       <Text className="text-3xl font-bold">{children}</Text>
 
       {user && true ? (
-        <Pressable onPress={() => signOut()}>
-          <View className="items-center justify-center">
-            <Image
-              source={{ uri: user?.imageUrl }}
-              className="w-16 h-16 rounded-full"
-            />
-          </View>
-        </Pressable>
+        <>
+          <Dialog>
+            <DialogTrigger>
+              <TouchableOpacity>
+                <View className="items-center justify-center">
+                  <Image
+                    source={{ uri: user?.imageUrl }}
+                    className="w-16 h-16 rounded-full"
+                  />
+                </View>
+              </TouchableOpacity>
+            </DialogTrigger>
+            <DialogContent>
+              <View className="flex gap-7">
+                <Text className="font-semibold text-xl text-primary">
+                  Sair da conta
+                </Text>
+                <Text className="text-primary">
+                  Tem certeza que deseja sair da conta?
+                </Text>
+
+                <Button label="Sair" onPress={() => signOut()} />
+              </View>
+            </DialogContent>
+          </Dialog>
+        </>
       ) : (
         <Pressable
           className="w-16 h-16 bg-white items-center flex justify-center rounded-full"

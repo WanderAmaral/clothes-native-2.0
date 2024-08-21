@@ -65,7 +65,9 @@ export default function DetailsPage({ navigation }: any) {
           <Text className="text-2xl font-semibold">
             {truncateName(product.name)}
           </Text>
-          <Text className="text-gray-500 text-lg">R$: {product.price}</Text>
+          <Text className="text-gray-500 text-lg">
+            R$: {product.price.toFixed(2)}
+          </Text>
         </View>
         <Text className="font-semibold text-xl">Size</Text>
         <View className="flex-row gap-4">

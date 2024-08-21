@@ -122,27 +122,33 @@ export default function Cart({ navigation }: any) {
         renderItem={renderItemProduct}
         keyExtractor={(item, index) => `${item.id}-${index}`}
       />
-      <View className="px-10">
-        <View className=" justify-between flex-row">
-          <Text className="text-3xl text-gray-500">Total:</Text>
-          <Text className="text-lg text-gray-500">{totalPrice.toFixed(2)}</Text>
-        </View>
-        <View className="flex-row justify-between py-3 border-b-2 border-b-gray-500 ">
-          <Text className="text-3xl text-gray-500">Discount:</Text>
-          <Text className="text-lg font-semibold text-gray-500">R$: 00,00</Text>
-        </View>
+      {products.length > 0 && (
+        <View className="px-10">
+          <View className=" justify-between flex-row">
+            <Text className="text-3xl text-gray-500">Total:</Text>
+            <Text className="text-lg text-gray-500">
+              {totalPrice.toFixed(2)}
+            </Text>
+          </View>
+          <View className="flex-row justify-between py-3 border-b-2 border-b-gray-500 ">
+            <Text className="text-3xl text-gray-500">Discount:</Text>
+            <Text className="text-lg font-semibold text-gray-500">
+              R$: 00,00
+            </Text>
+          </View>
 
-        <View className="flex-row justify-between py-3">
-          <Text className="text-3xl ">Grand Total:</Text>
-          <Text className="text-lg font-bold">{totalPrice.toFixed(2)}</Text>
+          <View className="flex-row justify-between py-3">
+            <Text className="text-3xl ">Grand Total:</Text>
+            <Text className="text-lg font-bold">{totalPrice.toFixed(2)}</Text>
+          </View>
+          <Button
+            className="my-4"
+            variant={"default"}
+            size={"lg"}
+            label="Add to cart"
+          />
         </View>
-        <Button
-          className="my-4"
-          variant={"default"}
-          size={"lg"}
-          label="Add to cart"
-        />
-      </View>
+      )}
     </View>
   );
 }

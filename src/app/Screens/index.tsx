@@ -9,16 +9,20 @@ import Menu from "./Menu";
 import User from "./User";
 import DetailsPageScreens from "./DetailsPage";
 import { MyTheme } from "../components/theme-types";
+import { useAuth, useOAuth } from "@clerk/clerk-expo";
 
 const Tab = createBottomTabNavigator();
 
 export function MyTabs() {
   const { products } = useCartStore();
-  const cartQuantity = products.reduce((total, product) => total + (product.quantity || 1), 0);
+  const cartQuantity = products.reduce(
+    (total, product) => total + (product.quantity || 1),
+    0
+  );
+  const { isSignedIn } = useAuth();
 
   return (
     <NavigationContainer theme={MyTheme}>
-      
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
@@ -56,47 +60,51 @@ export function MyTabs() {
             ),
           }}
         />
-        <Tab.Screen
-          name="Cart"
-          component={Cart}
-          options={{
-            tabBarLabel: "",
-            tabBarIcon: ({ focused }) => (
-              <View>
-                <Ionicons
-                  name="cart"
-                  size={30}
-                  color={focused ? "#E12727" : "#c0c0c0"}
-                />
-                {cartQuantity > 0 && (
-                  <View
-                    style={{
-                      position: "absolute",
-                      right: -6,
-                      top: -3,
-                      backgroundColor: "red",
-                      borderRadius: 10,
-                      width: 20,
-                      height: 20,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 12,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {cartQuantity}
-                    </Text>
+        {isSignedIn === true && (
+          <>
+            <Tab.Screen
+              name="Cart"
+              component={Cart}
+              options={{
+                tabBarLabel: "",
+                tabBarIcon: ({ focused }) => (
+                  <View>
+                    <Ionicons
+                      name="cart"
+                      size={30}
+                      color={focused ? "#E12727" : "#c0c0c0"}
+                    />
+                    {cartQuantity > 0 && (
+                      <View
+                        style={{
+                          position: "absolute",
+                          right: -6,
+                          top: -3,
+                          backgroundColor: "red",
+                          borderRadius: 10,
+                          width: 20,
+                          height: 20,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "white",
+                            fontSize: 12,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {cartQuantity}
+                        </Text>
+                      </View>
+                    )}
                   </View>
-                )}
-              </View>
-            ),
-          }}
-        />
+                ),
+              }}
+            />
+          </>
+        )}
 
         <Tab.Screen
           name="User"
