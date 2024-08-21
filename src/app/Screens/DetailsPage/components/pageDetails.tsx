@@ -4,7 +4,7 @@ import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
 import { FadeIn } from "react-native-reanimated";
 import { truncateName } from "@/helpers/splitName";
 import { Badge } from "@/components/Badge";
-import Sizes from "./Sizes";
+import Sizes from "../../../../components/Sizes";
 import { Button } from "@/components/Button";
 import { useCartStore } from "@/store/cart";
 import { useAuth } from "@clerk/clerk-expo";
@@ -26,7 +26,7 @@ type DetailsPageRouteProp = RouteProp<
 export default function DetailsPage({ navigation }: any) {
   const route = useRoute<DetailsPageRouteProp>();
   const { product } = route.params;
-  const { addProductToCart } = useCartStore();
+  const { addProductToCart, products } = useCartStore();
   const { userId } = useAuth();
 
   console.log(userId);
@@ -42,7 +42,7 @@ export default function DetailsPage({ navigation }: any) {
       price: product.price,
       image: product.image,
       userId: userId ?? "",
-      quantity: 1
+      quantity: 1,
     };
     addProductToCart(productToAdd);
   };
