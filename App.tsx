@@ -47,7 +47,7 @@ export default function App() {
           <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight + 8 }}>
             <InitialLayout />
             <StatusBar style="auto" />
-            <Header />
+            
 
             <MyTabs />
           </SafeAreaView>

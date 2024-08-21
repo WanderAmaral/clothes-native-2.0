@@ -18,6 +18,7 @@ export function MyTabs() {
 
   return (
     <NavigationContainer theme={MyTheme}>
+      
       <Tab.Navigator
         screenOptions={{
           headerShown: false,

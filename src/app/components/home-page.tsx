@@ -53,8 +53,6 @@ export default function Home({ navigation }: any) {
     fetchProducts();
   }, []);
 
-  console.log()
-
   const renderItem = ({ item }: { item: DataProducts }) => (
     <View className="px-2 w-1/2 ">
       <TouchableOpacity

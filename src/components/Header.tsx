@@ -1,12 +1,16 @@
-import { View, Pressable, Image } from "react-native";
+import { View, Pressable, Image, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect } from "react";
 import { useAuth, useOAuth, useUser } from "@clerk/clerk-expo";
 import * as Liking from "expo-linking";
 
+interface HeaderProps {
+  Icon?: typeof Ionicons;
+  children?: string;
+}
 
-const Header = () => {
+const Header = ({ Icon, children }: HeaderProps) => {
   const { user } = useUser();
   const { signOut } = useAuth();
 
@@ -42,6 +46,8 @@ const Header = () => {
       <Pressable className="w-16 h-16 bg-white items-center flex justify-center rounded-full">
         <Ionicons name="menu" size={40} color={"#121212"} />
       </Pressable>
+
+      <Text className="text-3xl font-bold">{children}</Text>
 
       {user && true ? (
         <Pressable onPress={() => signOut()}>
