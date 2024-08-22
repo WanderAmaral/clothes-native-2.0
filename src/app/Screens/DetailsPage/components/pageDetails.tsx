@@ -26,7 +26,7 @@ type DetailsPageRouteProp = RouteProp<
 export default function DetailsPage({ navigation }: any) {
   const route = useRoute<DetailsPageRouteProp>();
   const { product } = route.params;
-  const { addProductToCart, products } = useCartStore();
+  const { addProductToCart } = useCartStore();
   const { userId } = useAuth();
 
   console.log(userId);

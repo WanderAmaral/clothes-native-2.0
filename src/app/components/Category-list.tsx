@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 
 export default function CategoryList() {
   return (
-    <View className="flex-row px-5 pt-5 pb-10  w-full justify-between">
+    <View className="flex-row px-5 pt-5  w-full justify-between">
       <Badge
         label="Trending Now"
         variant={"secondary"}

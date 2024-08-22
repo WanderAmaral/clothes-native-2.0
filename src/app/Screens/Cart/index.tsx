@@ -15,6 +15,7 @@ import { useCartStore } from "@/store/cart";
 import { CartType } from "@/types/cart.types";
 import Sizes from "../../../components/Sizes";
 import { Button } from "@/components/Button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/Dialog";
 
 export default function Cart({ navigation }: any) {
   const { user } = useUser();
@@ -100,14 +101,32 @@ export default function Cart({ navigation }: any) {
         <Text className="text-3xl font-bold">My Cart</Text>
 
         {user && true ? (
-          <Pressable onPress={() => signOut()}>
-            <View className="items-center justify-center">
-              <Image
-                source={{ uri: user?.imageUrl }}
-                className="w-16 h-16 rounded-full"
-              />
-            </View>
-          </Pressable>
+          <>
+            <Dialog>
+              <DialogTrigger>
+                <TouchableOpacity>
+                  <View className="items-center justify-center">
+                    <Image
+                      source={{ uri: user?.imageUrl }}
+                      className="w-16 h-16 rounded-full"
+                    />
+                  </View>
+                </TouchableOpacity>
+              </DialogTrigger>
+              <DialogContent>
+                <View className="flex gap-7">
+                  <Text className="font-semibold text-xl text-primary">
+                    Sair da conta
+                  </Text>
+                  <Text className="text-primary">
+                    Tem certeza que deseja sair da conta?
+                  </Text>
+
+                  <Button label="Sair" onPress={() => signOut()} />
+                </View>
+              </DialogContent>
+            </Dialog>
+          </>
         ) : (
           <Pressable
             className="w-16 h-16 bg-white items-center flex justify-center rounded-full"
@@ -122,7 +141,7 @@ export default function Cart({ navigation }: any) {
         renderItem={renderItemProduct}
         keyExtractor={(item, index) => `${item.id}-${index}`}
       />
-      {products.length > 0 && (
+      {products.length > 0 ? (
         <View className="px-10">
           <View className=" justify-between flex-row">
             <Text className="text-3xl text-gray-500">Total:</Text>
@@ -148,6 +167,8 @@ export default function Cart({ navigation }: any) {
             label="Add to cart"
           />
         </View>
+      ) : (
+        <></>
       )}
     </View>
   );

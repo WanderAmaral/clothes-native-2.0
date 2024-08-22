@@ -29,9 +29,6 @@ interface DataProducts {
 
 export default function Home({ navigation }: any) {
   const [fetchProducts, setProducts] = useState<DataProducts[]>([]);
-  const { products } = useCartStore();
-
-  console.log(products);
 
   useEffect(() => {
     const fetchProducts = async () => {
