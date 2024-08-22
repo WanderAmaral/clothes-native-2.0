@@ -1,13 +1,12 @@
-import { View, Text, Image, Pressable, ImageBackground } from "react-native";
+import { View, Text, Pressable, ImageBackground } from "react-native";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { Ionicons, Feather, MaterialIcons } from "@expo/vector-icons";
-import { FadeIn } from "react-native-reanimated";
+import * as Liking from "expo-linking";
+import { MaterialIcons } from "@expo/vector-icons";
 import { truncateName } from "@/helpers/splitName";
-import { Badge } from "@/components/Badge";
 import Sizes from "../../../../components/Sizes";
 import { Button } from "@/components/Button";
 import { useCartStore } from "@/store/cart";
-import { useAuth } from "@clerk/clerk-expo";
+import { useAuth, useOAuth } from "@clerk/clerk-expo";
 
 interface RouteParams {
   product: {
@@ -31,9 +30,28 @@ export default function DetailsPage({ navigation }: any) {
 
   console.log(userId);
 
+  const googleOAuth = useOAuth({ strategy: "oauth_google" });
+
+  async function onGoogleSignIn() {
+    try {
+      const redirectUrl = Liking.createURL("/");
+
+      const oAuthFlow = await googleOAuth.startOAuthFlow({ redirectUrl });
+
+      if (oAuthFlow.authSessionResult?.type === "success") {
+        if (oAuthFlow.setActive) {
+          await oAuthFlow.setActive({ session: oAuthFlow.createdSessionId });
+        }
+      } else {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleAddProduct = () => {
     if (!userId) {
-      return null;
+      onGoogleSignIn()
     }
 
     const productToAdd = {
