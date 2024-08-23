@@ -5,7 +5,6 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import { useCartStore } from "@/store/cart";
 
 import Cart from "./Cart";
-import Menu from "./Menu";
 import User from "./User";
 import DetailsPageScreens from "./DetailsPage";
 import { MyTheme } from "../components/theme-types";
@@ -46,20 +45,7 @@ export function MyTabs() {
             ),
           }}
         />
-        <Tab.Screen
-          name="Menu"
-          component={Menu}
-          options={{
-            tabBarLabel: "",
-            tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name={focused ? "menu" : "menu-outline"}
-                size={30}
-                color={focused ? "#E12727" : "#c0c0c0"}
-              />
-            ),
-          }}
-        />
+
         {isSignedIn === true && (
           <>
             <Tab.Screen
