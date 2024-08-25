@@ -7,7 +7,7 @@ import { useCartStore } from "@/store/cart";
 import Cart from "./Cart";
 import User from "./User";
 import DetailsPageScreens from "./DetailsPage";
-import { MyTheme } from "../components/theme-types";
+import { MyTheme } from "../../types/theme-types";
 import { useAuth, useOAuth } from "@clerk/clerk-expo";
 
 const Tab = createBottomTabNavigator();
