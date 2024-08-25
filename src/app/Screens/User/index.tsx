@@ -34,7 +34,9 @@ export default function User() {
             <View className="justify-between flex-row">
               <View className="flex-row  items-center gap-3">
                 <MaterialCommunityIcons name="newspaper" size={24} />
-                <Text className="font-medium text-xl">Edit profile information</Text>
+                <Text className="font-medium text-xl">
+                  Edit profile information
+                </Text>
               </View>
             </View>
             <View className="justify-between flex-row">
@@ -59,7 +61,9 @@ export default function User() {
                 <Text className="font-medium text-xl">Themes</Text>
               </View>
 
-              <Text className=" capitalize text-blue-600 text-xl">Light mode</Text>
+              <Text className=" capitalize text-blue-600 text-xl">
+                Light mode
+              </Text>
             </View>
           </CardContent>
         </Card>

@@ -7,7 +7,6 @@ import Sizes from "../../../../components/Sizes";
 import { Button } from "@/components/Button";
 import { useCartStore } from "@/store/cart";
 import { useAuth, useOAuth } from "@clerk/clerk-expo";
-import { useToast } from "@/components/Toast";
 
 interface RouteParams {
   product: {
@@ -28,7 +27,6 @@ export default function DetailsPage({ navigation }: any) {
   const { product } = route.params;
   const { addProductToCart } = useCartStore();
   const { userId } = useAuth();
-  const { toast } = useToast();
 
   const googleOAuth = useOAuth({ strategy: "oauth_google" });
 
@@ -62,13 +60,7 @@ export default function DetailsPage({ navigation }: any) {
       quantity: 1,
     };
     addProductToCart(productToAdd);
-    toast(
-      `Product ${product.name} added to cart!`,
-      "success", // ou qualquer variante que você deseje
-      3000, // duração em milissegundos
-      "top", // posição do toast
-      true // mostrar barra de progresso
-    );
+    
   };
 
   return (

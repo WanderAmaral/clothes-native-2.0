@@ -61,6 +61,7 @@ export default function Cart({ navigation }: any) {
             source={{ uri: item.image }}
             className="w-[105px] h-[135px] rounded-2xl"
           />
+
           <View className="px-5 py-1 justify-between ">
             <Text className="font-semibold text-2xl">{item.name}</Text>
             <Text className="text-slate-600 text-lg">

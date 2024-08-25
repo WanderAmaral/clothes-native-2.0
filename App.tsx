@@ -1,3 +1,4 @@
+import "@/styles/global.css";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -31,22 +32,26 @@ function InitialLayout() {
 
 export default function App() {
   return (
-    <ClerkProvider
-      publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}
-      tokenCache={tokenCache}
-    >
-      <LinearGradient
-        colors={["#e5c3bf", "#dddddd", "#FFFFFF"]}
-        className="flex-1 shadow-lg" // Adicionando sombra com Tailwind
+    <>
+      <ClerkProvider
+        publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}
+        tokenCache={tokenCache}
       >
-        <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight + 8 }}>
-          <ToastProvider position="top">
-            <InitialLayout />
-            <StatusBar style="auto" />
-            <MyTabs />
-          </ToastProvider>
-        </SafeAreaView>
-      </LinearGradient>
-    </ClerkProvider>
+        <LinearGradient
+          colors={["#e5c3bf", "#dddddd", "#FFFFFF"]}
+          style={{
+            flex: 1,
+          }}
+        >
+          <SafeAreaView style={{ flex: 1, marginTop: statusBarHeight + 8 }}>
+            
+              <InitialLayout />
+              <StatusBar style="auto" />
+              <MyTabs />
+            
+          </SafeAreaView>
+        </LinearGradient>
+      </ClerkProvider>
+    </>
   );
 }
