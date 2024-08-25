@@ -12,6 +12,7 @@ import CategoryList from "./Category-list";
 import Search from "./Search";
 import { truncateName } from "@/helpers/splitName";
 import { useCartStore } from "@/store/cart";
+import Header from "@/components/Header";
 
 interface ApiProduct {
   id: number;
@@ -76,10 +77,13 @@ export default function Home({ navigation }: any) {
     <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
       <FlatList
         ListHeaderComponent={
-          <View style={{ padding: 16 }}>
-            <Search />
-            <CategoryList />
-          </View>
+          <>
+            <Header />
+            <View style={{ padding: 16 }}>
+              <Search />
+              <CategoryList />
+            </View>
+          </>
         }
         data={fetchProducts}
         renderItem={renderItem}

@@ -6,13 +6,18 @@ import { useAuth, useOAuth, useUser } from "@clerk/clerk-expo";
 import * as Liking from "expo-linking";
 import { Dialog, DialogContent, DialogTrigger } from "./Dialog";
 import { Button } from "./Button";
+import { useNavigation } from "@react-navigation/native";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
+  MenuIcon?: JSX.Element;
   Icon?: typeof Ionicons;
   children?: string;
+  className?: string;
 }
 
-const Header = ({ Icon, children }: HeaderProps) => {
+const Header = ({ Icon, children, MenuIcon, className }: HeaderProps) => {
+  const navigation = useNavigation();
   const { user } = useUser();
   const { signOut } = useAuth();
 
@@ -44,12 +49,20 @@ const Header = ({ Icon, children }: HeaderProps) => {
   }, []);
 
   return (
-    <View className="w-full items-center justify-between flex flex-row py-4 px-5">
-      <Pressable className="w-16 h-16 bg-white items-center flex justify-center rounded-full">
-        <Ionicons name="menu" size={40} color={"#121212"} />
-      </Pressable>
-
-      <Text className="text-3xl font-bold">{children}</Text>
+    <View
+      className={cn(
+        "w-full items-center justify-between flex flex-row py-4 px-5",
+        className
+      )}
+    >
+      {MenuIcon ? (
+        <Pressable
+          onPress={navigation.goBack}
+          className="w-16 h-16 bg-white items-center flex justify-center rounded-full"
+        >
+          {MenuIcon}
+        </Pressable>
+      ) : null}
 
       {user && true ? (
         <>

@@ -7,6 +7,8 @@ import Sizes from "../../../../components/Sizes";
 import { Button } from "@/components/Button";
 import { useCartStore } from "@/store/cart";
 import { useAuth, useOAuth } from "@clerk/clerk-expo";
+import Header from "@/components/Header";
+import { Ionicons } from "@expo/vector-icons";
 
 interface RouteParams {
   product: {
@@ -57,20 +59,15 @@ export default function DetailsPage({ navigation }: any) {
       price: product.price,
       image: product.image,
       userId: userId ?? "",
-      quantity: 1,
     };
     addProductToCart(productToAdd);
-    
   };
 
   return (
-    <View>
-      <Pressable
-        onPress={navigation.goBack}
-        className="w-16 h-16 bg-white items-center flex justify-center rounded-full mb-4 mx-5"
-      >
-        <MaterialIcons name="arrow-back" size={30} color={"#121212"} />
-      </Pressable>
+    <View className="h-screen">
+      <Header
+        MenuIcon={<Ionicons name="arrow-back" size={40} color={"#D41515"} />}
+      />
       <ImageBackground
         source={{ uri: product.image }}
         className="w-full h-[350px] rounded-3xl"
@@ -104,7 +101,7 @@ export default function DetailsPage({ navigation }: any) {
         </View>
         <Button
           onPress={handleAddProduct}
-          className="my-4"
+          className="my-6"
           variant={"default"}
           size={"lg"}
           label="Add to cart"
