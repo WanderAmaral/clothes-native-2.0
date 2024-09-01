@@ -24,11 +24,12 @@ type DetailsPageRouteProp = RouteProp<
   "DetailsPage"
 >;
 
-export default function DetailsPage({ navigation }: any) {
+export default function DetailsPage() {
   const route = useRoute<DetailsPageRouteProp>();
   const { product } = route.params;
   const { addProductToCart } = useCartStore();
   const { userId } = useAuth();
+
 
   const googleOAuth = useOAuth({ strategy: "oauth_google" });
 
@@ -64,49 +65,52 @@ export default function DetailsPage({ navigation }: any) {
   };
 
   return (
-    <View className="h-screen">
-      <Header
-        MenuIcon={<Ionicons name="arrow-back" size={40} color={"#D41515"} />}
-      />
-      <ImageBackground
-        source={{ uri: product.image }}
-        className="w-full h-[350px] rounded-3xl"
-        resizeMode="cover"
-      />
-      <View className="px-10 py-5 flex-col gap-3">
-        <View className="flex-row justify-between items-center">
-          <Text className="text-2xl font-semibold">
-            {truncateName(product.name)}
-          </Text>
-          <Text className="text-gray-500 text-lg">
-            R$: {product.price.toFixed(2)}
-          </Text>
-        </View>
-        <Text className="font-semibold text-xl">Size</Text>
-        <View className="flex-row gap-4">
-          <Sizes text="S" />
-          <Sizes text="M" />
-          <Sizes text="L" />
-          <Sizes text="XL" />
-        </View>
-
-        <Text className="font-semibold text-xl">Color</Text>
-        <View className="flex-row gap-4">
-          <Sizes className="bg-[#EE3434]" />
-          <Sizes className="bg-[#000000]" />
-          <Sizes className="bg-[#3734EE]" />
-          <Sizes className="bg-[#91EE34]" />
-          <Sizes className="bg-[#DA7137]" />
-          <Sizes className="bg-[#34EEEE]" />
-        </View>
-        <Button
-          onPress={handleAddProduct}
-          className="my-6"
-          variant={"default"}
-          size={"lg"}
-          label="Add to cart"
-        />
-      </View>
+    <View className="flex-1">
+  <Header
+    MenuIcon={<Ionicons name="arrow-back" size={40} color={"#D41515"} />}
+  />
+  <ImageBackground
+    source={{ uri: product.image }}
+    className="w-full h-[350px] rounded-3xl"
+    resizeMode="cover"
+  />
+  <View className="flex-1 px-10 py-5">
+    <View className="flex-row justify-between items-center mb-4">
+      <Text className="text-2xl font-semibold">
+        {truncateName(product.name)}
+      </Text>
+      <Text className="text-gray-500 text-lg">
+        R$: {product.price.toFixed(2)}
+      </Text>
     </View>
+    <Text className="font-semibold text-xl">Size</Text>
+    <View className="flex-row gap-4 my-3">
+      <Sizes text="S" />
+      <Sizes text="M" />
+      <Sizes text="L" />
+      <Sizes text="XL" />
+    </View>
+    <Text className="font-semibold text-xl">Color</Text>
+    <View className="flex-row gap-4 my-3">
+      <Sizes className="bg-[#EE3434]" />
+      <Sizes className="bg-[#000000]" />
+      <Sizes className="bg-[#3734EE]" />
+      <Sizes className="bg-[#91EE34]" />
+      <Sizes className="bg-[#DA7137]" />
+      <Sizes className="bg-[#34EEEE]" />
+    </View>
+  </View>
+
+  <View className="px-10 py-4 ">
+    <Button
+      onPress={handleAddProduct}
+      variant={"default"}
+      size={"lg"}
+      label="Add to cart"
+      className="w-full"
+    />
+  </View>
+</View>
+
   );
 }

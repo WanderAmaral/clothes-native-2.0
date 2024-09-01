@@ -11,13 +11,13 @@ import { Ionicons } from "@expo/vector-icons";
 import CategoryList from "./Category-list";
 import Search from "./Search";
 import { truncateName } from "@/helpers/splitName";
-import { useCartStore } from "@/store/cart";
 import Header from "@/components/Header";
 
 interface ApiProduct {
   id: number;
   title: string;
   price: number;
+  category: string;
   image: string;
 }
 
@@ -25,11 +25,13 @@ interface DataProducts {
   id: number;
   name: string;
   price: number;
+  category: string;
   image: string;
 }
 
 export default function Home({ navigation }: any) {
   const [fetchProducts, setProducts] = useState<DataProducts[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All Products");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,6 +43,7 @@ export default function Home({ navigation }: any) {
           id: item.id,
           name: truncateName(item.title),
           price: item.price,
+          category: item.category,
           image: item.image,
         }));
         setProducts(formattedData);
@@ -50,6 +53,13 @@ export default function Home({ navigation }: any) {
     };
     fetchProducts();
   }, []);
+
+  const filterProducts = () => {
+    if (selectedCategory === "All Products") {
+      return fetchProducts;
+    }
+    return fetchProducts.filter((product) => product.category.includes(selectedCategory.toLowerCase()));
+  };
 
   const renderItem = ({ item }: { item: DataProducts }) => (
     <View className="px-2 w-1/2 ">
@@ -81,11 +91,14 @@ export default function Home({ navigation }: any) {
             <Header />
             <View style={{ padding: 16 }}>
               <Search />
-              <CategoryList />
+              <CategoryList 
+                selectedCategory={selectedCategory}
+                onSelectCategory={(category) => setSelectedCategory(category)}
+              />
             </View>
           </>
         }
-        data={fetchProducts}
+        data={filterProducts()}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
